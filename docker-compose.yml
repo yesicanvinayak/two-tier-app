@@ -1,0 +1,34 @@
+version: '3'
+services:
+  
+  # Define the backend service for your Flask application
+  backend:
+    image: yesicanvinayak/projects:flaskapp
+    ports:
+      - "5000:5000"  # Map host port 5000 to container port 5000
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DB: myDb
+    depends_on:
+      - mysql  # Ensure that the 'mysql' service is started before the 'backend' service
+
+  # Define the MySQL service
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: admin  # Set the root password for MySQL
+      MYSQL_DATABASE: myDb  # Create a MySQL database named 'myDb'
+      MYSQL_USER: admin  # Create a MySQL user 'admin'
+      MYSQL_PASSWORD: admin  # Set the password for the 'admin' user
+    volumes:
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql
+        # Mount an SQL script into the container's /docker-entrypoint-initdb.d directory
+        # This script will be executed to initialize the database with a table
+      - mysql-data:/var/lib/mysql
+        # Mount a volume for MySQL data storage
+
+# Define named volumes
+volumes:
+  mysql-data:  # Create a named volume for MySQL data storage
