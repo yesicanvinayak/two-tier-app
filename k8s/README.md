@@ -5,7 +5,7 @@ Use blog for step-by-step process >> https://yes-we-can-devops.hashnode.dev/proj
 ## SetUp
 - First clone the code to your machine
 ```bash
-git clone https://github.com/LondheShubham153/two-tier-flask-app.git
+git clone https://github.com/yesicanvinayak/two-tier-app.git
 ```
 - Move to k8s directory
 ```bash
